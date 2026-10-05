@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>V2Ray 分流出口检测</title>
+  <link rel="stylesheet" href="style.css"><link rel="stylesheet" href="extra.css"><link rel="stylesheet" href="layout.css">
+</head>
+<body>
+  <main class="wrap">
+    <header><div><p class="eyebrow">V2RAY / XRAY</p><h1>分流出口检测</h1><p class="sub">让不同目标网站告诉你：当前请求从哪个出口出去。</p></div><button id="run" class="primary">开始检测</button></header>
+    <section class="panel overview"><div><span>检测状态</span><strong id="status">等待开始</strong></div><div><span>已完成</span><strong id="progress">0 / 0</strong></div><div><span>节点映射</span><strong id="mapping">未配置</strong></div></section>
+    <section class="panel"><div class="section-head"><div><h2>目标站点</h2><p>浏览器分别访问这些探针，结果代表“该站点看到的出口 IP”。上传日志后，v2rayN 实际策略 / 节点会显示在最后一列。</p></div><button id="clear" class="ghost">清空结果</button></div><div id="groups" class="groups"></div></section>
+    <section class="panel mapping-panel"><div class="section-head"><div><h2>v2rayN 日志 / 节点映射</h2><p>推荐直接把 v2rayN 日志粘贴到下面；也支持选择 .txt / .log 文件。JSON 仅用于手动 IP 节点映射。</p></div></div>
+      <textarea id="mapInput" placeholder='例如：[ {"ip":"1.2.3.4","group":"香港专线","node":"HK-01"} ]'></textarea><div class="actions"><button id="applyMap" class="primary small">应用映射</button><span id="mapHint">支持 JSON 数组：ip、group、node</span></div>
+    </section>
+    <section class="panel"><div class="section-head"><div><h2>上传 v2rayN / Xray 日志</h2><p>仅在本机浏览器解析，不会把日志上传到服务器。支持 .txt、.log。</p></div><label class="upload primary small">选择日志<input id="logFile" type="file" accept=".txt,.log,text/plain"></label></div><div id="logSummary" class="log-summary">还没有上传日志。</div></section>
+    <section class="panel"><h2>如何确认是否使用了 v2rayN</h2><div class="explain"><p><b>本页面只能确认“出口 IP 变了”。</b>它不能单独证明流量使用的是 V2Ray、Xray、Clash 还是其他代理内核。</p><ol><li>在 v2rayN 里看“当前活动连接 / 日志”，访问本页时应出现对应目标域名。</li><li>检查 v2rayN 的“服务器 / 节点”列表和当前选中项；页面检测到的 IP 只代表最终出口。</li><li>如果要定位具体组和节点，需要把节点的出口 IP 与检测结果匹配，或开启本机 API 后接入查询。</li></ol><p class="muted">推荐验证顺序：先切换 v2rayN 节点 → 重新检测 → 对比 ChatGPT、Gemini、YouTube 的出口 IP 和可用性。</p></div></section>
+    <footer>说明：超时、CDN、IPv4/IPv6 和代理模式都会影响结果；本页不上传 v2rayN 配置。</footer>
+  </main><script src="script.js"></script><script src="patch.js"></script><script src="features.js"></script><link rel="stylesheet" href="features.css">
+</body></html>
